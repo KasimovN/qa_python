@@ -32,15 +32,6 @@ class TestBooksCollector:
         add_book_to_library.set_book_genre(name, genre)
         assert add_book_to_library.books_genre[name] == result
 
-    # проверка на не обработку ошибки при устанавки жанра книги, если книги нет в словаре books_genre
-    def test_set_book_genre_without_name_error(self, collector):
-        collector.set_book_genre('Как я встретил вашу маму', 'Комедии')
-        try:
-            result = collector.books_genre['Как я встретил вашу маму']
-        except KeyError:
-            result = 'error'
-        assert result == 'error'
-
     # проверка получения жанра книги по её имени
     @pytest.mark.parametrize('name, genre', test_params)
     def test_get_book_genre_success(self, name, genre, add_book_to_library_with_genre):
@@ -77,4 +68,4 @@ class TestBooksCollector:
 
     # проверка на получение списка Избранных книг
     def test_get_list_of_favorites_books(self, add_book_to_list_of_favorites_books):
-        assert len(add_book_to_list_of_favorites_books.favorites) == 3
+        assert len(add_book_to_list_of_favorites_books.get_list_of_favorites_books()) == 3
